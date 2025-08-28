@@ -1,0 +1,12 @@
+# Runtime dependencies
+opencv-python>=4.5.0
+numpy>=1.19.0
+
+# Development dependencies (optional)
+pytest>=6.0.0
+pytest-cov>=2.10.0
+black>=21.5b0
+flake8>=3.9.0
+isort>=5.8.0
+mypy>=0.812
+pre-commit>=2.13.0
