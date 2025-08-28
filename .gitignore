@@ -140,8 +140,8 @@ Thumbs.db
 *.swo
 
 # Project specific
-samples/output/
-*.jpg
-*.png
-*.bmp
-*.tiff
+# samples/output/
+# *.jpg
+# *.png
+# *.bmp
+# *.tiff
