@@ -5,15 +5,20 @@
   <img src="https://img.shields.io/badge/OpenCV-4.x-green?style=for-the-badge&logo=opencv" alt="OpenCV Version" />
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License" />
   <img src="https://img.shields.io/badge/Version-1.0.0-brightgreen?style=for-the-badge" alt="Version" />
-  <img src="https://img.shields.io/github/issues/your-username/image-to-pencil-sketch?style=for-the-badge" alt="Issues" />
-  <img src="https://img.shields.io/github/stars/your-username/image-to-pencil-sketch?style=for-the-badge" alt="Stars" />
+  <img src="https://img.shields.io/github/issues/ahmedsabrari/image-to-pencil-sketch?style=for-the-badge" alt="Issues" />
+  <img src="https://img.shields.io/github/stars/ahmedsabrari/image-to-pencil-sketch?style=for-the-badge" alt="Stars" />
 </p>
 
 ## 📖 About The Project
 
 A sophisticated Python application that transforms ordinary photographs into beautiful pencil sketch artworks using OpenCV's computer vision capabilities. This tool provides a simple yet powerful way to create artistic representations of your images with realistic sketch effects.
 
-![Example Transformation](https://via.placeholder.com/800x400.png?text=Original+Image+%2B+Sketch+Result)
+<div align="center">
+  
+  | Original image | Pen drawing |
+  |---|---|
+  | ![الصورة الأصلية](./images/Original_image.png) | ![الرسم القلمي](./images/Pen-drawing.png) |
+</div>
 
 ### Key Features
 - 🎨 High-quality pencil sketch conversion
@@ -54,7 +59,12 @@ git clone https://github.com/ahmedsabrari/image-to-pencil-sketch.git
 cd image-to-pencil-sketch
 ```
 
-2. **Install the package**
+2. **Install the required dependencies**:
+```bash
+pip install opencv-python pillow
+```
+
+3. **Install the package**
 ```bash
 pip install -e .
 ```
@@ -64,7 +74,17 @@ pip install -e .
 ### Command Line Interface
 
 ```bash
+# Basic usage
+python -m src.cli path/to/your/image.jpg
 
+# With output path
+python -m src.cli path/to/your/image.jpg -o output_sketch.png
+
+# With custom parameters and display
+python -m src.cli path/to/your/image.jpg -b 31 -s 300.0 --display --verbose
+
+# Example with a sample image (if you have one)
+python -m src.cli samples/input/your_image.jpg -o samples/output/sketch.png --display
 ```
 
 ### Python API
@@ -81,6 +101,12 @@ sketch = converter.convert("input.jpg", "output.png")
 
 # Batch processing
 results = converter.convert_batch(["img1.jpg", "img2.jpg"], "output_directory")
+```
+
+### GUI Version
+
+```bash
+python -m src.gui
 ```
 
 ### Advanced Configuration
@@ -108,7 +134,6 @@ for image_path in image_paths:
 ```
 image-to-pencil-sketch/
 ├── src/
-│   ├── __init__.py
 │   ├── cli.py
 │   ├── converter.py
 │   ├── gui.py
@@ -124,9 +149,12 @@ image-to-pencil-sketch/
 │   └── test_utils.py
 ├── samples/
 │   ├── input/
+│   │   └── Original_image.png
 │   └── output/
+│       └── Pen-drawing.png
 ├── images/
-│   └── demo.png
+│   ├── Original_image.png
+│   └── Pen-drawing.png
 ├── docs/
 │   ├── API.md
 │   ├── INSTALLATION.md
@@ -145,7 +173,22 @@ image-to-pencil-sketch/
 To run the test suite:
 
 ```bash
+# Run all tests
+python -m pytest tests/ -v
 
+# Run specific test modules
+python -m pytest tests/test_converter.py -v
+python -m pytest tests/test_utils.py -v
+python -m pytest tests/test_cli.py -v
+
+# Run integration tests
+python -m pytest tests/integration/ -v
+
+# Run performance tests
+python -m pytest tests/performance/ -v
+
+# Run tests with coverage report
+python -m pytest tests/ --cov=src --cov-report=html
 ```
 
 ## 🤝 Contributing
@@ -171,7 +214,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - [ ] Batch processing GUI
 - [ ] Plugin support for image editors
 
-See the [open issues](https://github.com/your-username/image-to-pencil-sketch/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/ahmedsabrari/image-to-pencil-sketch/issues) for a full list of proposed features (and known issues).
 
 ## ❓ FAQ
 
@@ -192,9 +235,9 @@ A: Yes, the library includes a `convert_batch()` method for processing multiple 
 
 ## 📞 Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_twitter) - email@example.com
+Ahmed Sabri - [@ahmedsabrari](https://github.com/ahmedsabrari) - sabrari.ahmed0@gmail.com
 
-Project Link: [https://github.com/your-username/image-to-pencil-sketch](https://github.com/your-username/image-to-pencil-sketch)
+Project Link: [https://github.com/ahmedsabrari/image-to-pencil-sketch](https://github.com/ahmedsabrari/image-to-pencil-sketch)
 
 ## 🙏 Acknowledgments
 
@@ -207,5 +250,46 @@ Project Link: [https://github.com/your-username/image-to-pencil-sketch](https://
 - [API Documentation](docs/API.md)
 - [Usage Examples](docs/EXAMPLES.md)
 - [Installation Guide](docs/INSTALLATION.md)
+
+## Troubleshooting
+
+If you encounter issues with the GUI on Linux, you might need to install Tkinter:
+```bash
+# For Ubuntu/Debian
+sudo apt-get install python3-tk
+
+# For Fedora
+sudo dnf install python3-tkinter
+
+# For CentOS/RHEL
+sudo yum install python3-tkinter
+```
+
+If you get import errors, make sure you're running from the correct directory:
+```bash
+# If you're in the src directory, go back to the project root
+cd ..
+```
+
+If you have multiple Python versions, specify which one to use:
+```bash
+python3 -m src.cli path/to/your/image.jpg
+```
+
+Create a test image if you don't have one:
+```bash
+# Create a simple test image using Python
+python -c "
+import cv2
+import numpy as np
+img = np.ones((400, 400, 3), dtype=np.uint8) * 255
+cv2.circle(img, (200, 200), 100, (0, 0, 255), -1)
+cv2.imwrite('test_image.jpg', img)
+print('Created test_image.jpg')
+"
+
+# Then convert it
+python -m src.cli test_image.jpg --display
+```
 
 ---
